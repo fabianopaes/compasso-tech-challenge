@@ -1,0 +1,18 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: compasso-rest-api
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+---
+spring:
+  application:
+    name: compasso-rest-api
+  profiles: docker
+  cloud:
+      config:
+        uri: http://compasso-config-server:8888

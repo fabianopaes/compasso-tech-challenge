@@ -1,0 +1,3 @@
+rootProject.name = 'compasso-tech-challenge'
+include 'compasso-rest-api',
+        'compasso-e2e-tests'

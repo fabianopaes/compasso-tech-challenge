@@ -1,0 +1,44 @@
+version: "3.1"
+
+services:
+  compasso-rest-api:
+    build: ./compasso-rest-api
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    expose:
+      - "8080"
+    ports:  
+      - "8080:8080"
+    depends_on:
+      - mongodb
+    environment:
+      - DATABASE_URI=mongodb://mongodb:27017/compasso-db
+      - EUREKA_CLIENT_ENABLED=false
+    networks:
+      - compasso
+
+  mongodb:
+    image: mongo:3.7
+    networks:
+      - compasso
+    environment:
+      - MONGO_INITDB_DATABASE=compasso-db
+    command: mongod --smallfiles --quiet --logpath=/dev/null
+    ports:
+      - "27017:27017"
+    volumes:
+       - ./mongodb/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  compasso-e2e-tests:
+    build: ./compasso-e2e-tests
+    depends_on:
+      - compasso-rest-api
+    environment:
+      - COMPASSO_REST_API_PORT=8080
+      - COMPASSO_REST_API_HOST=compasso-rest-api
+    networks:
+      - compasso
+
+networks:
+  compasso:
+    driver: bridge

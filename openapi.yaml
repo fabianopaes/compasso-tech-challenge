@@ -1,0 +1,546 @@
+openapi: 3.0.0
+
+info:
+  title: Rest API
+  description: |
+    The compasso rest api is the solution of tech challange as part of interview process.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:8080
+    description: Local server
+
+tags:
+  - name: State
+    description: Handling with state resource
+  - name: City
+    description: Handling with city resource
+  - name: Customer
+    description: Handling with customer resource
+paths:
+  /states:
+    get:
+      summary: Return the list of available states
+      tags:
+        - State
+      description: |
+        Retrieve the list of available states
+      responses:
+        "200":
+          description: |
+            The server process the request successfully and returns the states
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/states"
+        "500":
+          description: |
+            The server encountered an unexpected condition that prevented it from fulfilling the request
+
+  /cities:
+    post:
+      summary: Creates a new city
+      tags:
+        - City
+      description: |
+        Creates a new the City resource according to request body
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cityPayload"
+      responses:
+        "201":
+          description: |
+            The server process the request successfully and creates a new city according to request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/city'
+        "400":
+          description: |
+            The client perform a wrong request.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemBadRequest'
+        "500":
+          description: |
+            The server encountered an unexpected condition that prevented it from fulfilling the request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemInternalServer'
+
+    get:
+      summary: Retrieves a list of available cities
+      tags:
+        - City
+      description: |
+        Retrieves all available cities
+      responses:
+        "200":
+          description: |
+            The server process the request successfully and response with the list of available cities
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cities'
+        "500":
+          description: |
+            The server encountered an unexpected condition that prevented it from fulfilling the request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemInternalServer'
+
+  /cities/{cityId}:
+    put:
+      summary: Updates the city
+      tags:
+        - City
+      description: |
+        Updates the City resource according to request body
+      parameters:
+        - $ref: "#/components/parameters/cityId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/cityPayload"
+      responses:
+        "204":
+          description: |
+            The server process the request successfully and get the city up to date
+        "400":
+          description: |
+            The client perform a wrong request.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemBadRequest'
+        "500":
+          description: |
+            The server encountered an unexpected condition that prevented it from fulfilling the request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemInternalServer'
+
+
+    get:
+      summary: Retrieves the given city
+      tags:
+        - City
+      description: |
+        Retrieves the city according its identifier
+      parameters:
+        - $ref: "#/components/parameters/cityId"
+      responses:
+        "200":
+          description: |
+            The server process the request successfully and response with the city according to its identifier
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/city'
+        "404":
+          description: |
+            The city which was orded was not found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemNotFound'
+
+        "500":
+          description: |
+            The server encountered an unexpected condition that prevented it from fulfilling the request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemInternalServer'
+
+
+  /customers:
+    post:
+      summary: Creates a new customer
+      tags:
+        - Customer
+      description: |
+        Creates a new Customer resource according to request body
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/customerPayload"
+      responses:
+        "201":
+          description: |
+            The server process the request successfully and creates a new customer according to request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customer'
+        "400":
+          description: |
+            The client perform a wrong request.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemBadRequest'
+        "500":
+          description: |
+            The server encountered an unexpected condition that prevented it from fulfilling the request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemInternalServer'
+
+    get:
+      summary: Retrieves a list of available customers
+      tags:
+        - Customer
+      description: |
+        Retrieves all available customers
+      responses:
+        "200":
+          description: |
+            The server process the request successfully and response with the list of available customers
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customers'
+        "500":
+          description: |
+            The server encountered an unexpected condition that prevented it from fulfilling the request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemInternalServer'
+
+  /customers/{customerId}:
+    put:
+      summary: Updates the customer
+      tags:
+        - City
+      description: |
+        Updates the Customer resource according to request body
+      parameters:
+        - $ref: "#/components/parameters/customerId"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/customerPayload"
+      responses:
+        "204":
+          description: |
+            The server process the request successfully and get the customer up to date
+        "400":
+          description: |
+            The client perform a wrong request.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemBadRequest'
+        "500":
+          description: |
+            The server encountered an unexpected condition that prevented it from fulfilling the request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemInternalServer'
+
+
+    get:
+      summary: Retrieves the given customer
+      tags:
+        - Customer
+      description: |
+        Retrieves the customer according its identifier
+      parameters:
+        - $ref: "#/components/parameters/customerId"
+      responses:
+        "200":
+          description: |
+            The server process the request successfully and response with the customer according to its identifier
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/customer'
+        "404":
+          description: |
+            The customer which was orded was not found.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemNotFound'
+
+        "500":
+          description: |
+            The server encountered an unexpected condition that prevented it from fulfilling the request
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/problemInternalServer'
+
+components:
+  parameters:
+    cityId:
+      in: path
+      name: cityId
+      description: |
+        City identifier.
+      required: true
+      schema:
+        type: string
+    customerId:
+      in: path
+      name: customerId
+      description: |
+        Customer identifier.
+      required: true
+      schema:
+        type: string
+
+
+  schemas:
+
+    problemInternalServer:
+       title: Resource not found
+       type: object
+       properties:
+          message:
+            type: string
+            description: |
+              The code that describes which resource was not found
+
+    problemNotFound:
+       title: Resource not found
+       type: object
+       properties:
+          message:
+            type: string
+            description: |
+              The code that describes which resource was not found
+
+    problemBadRequest:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+          description: |
+            An absolute URI that identifies the problem type.  When dereferenced,
+            it SHOULD provide human-readable documentation for the problem type
+            (e.g., using HTML).
+          default: 'about:blank'
+        title:
+          type: string
+          description: |
+            A short, summary of the problem type. Written in english and readable
+            for engineers (usually not suited for non technical stakeholders and
+            not localized).
+        status:
+          type: integer
+          format: int32
+          description: |
+            The HTTP status code generated by the origin server for this occurrence
+            of the problem.
+        detail:
+          type: string
+          description: |
+            A human readable explanation specific to this occurrence of the
+            problem.
+        errors:
+          description: |
+            A list of human readable explanation specific to this occurrence
+            of the problem.
+          type: array
+          items:
+            format: string
+        instance:
+          type: string
+          format: uri
+          description: |
+            An absolute URI that identifies the specific occurrence of the problem.
+            It may or may not yield further information if dereferenced.
+      required:
+        - status
+        - title
+
+    state:
+      title: State
+      type: object
+      properties:
+        name:
+          type: string
+          description: |
+            The state name
+        shortName:
+          type: string
+          description: |
+            The shortName of the state
+      example:
+        name: "Santa Catarina"
+        shortName: "SC"
+
+    states:
+      title: List of all available states
+      type: array
+      items:
+        $ref: "#/components/schemas/state"
+
+    city:
+      title: City
+      type: object
+      properties:
+        id:
+          type: string
+          description: |
+            City identifier.
+        name:
+          type: string
+          description: |
+            Name of the city.
+        state:
+          type: string
+          description: |
+            It is the state shortName
+        createdAt:
+          type: string
+          format: date
+          description: |
+            The timestamp when the city has been created
+        updatedAt:
+          type: string
+          format: date
+          description: |
+            The timestamp when the city has been updated for the last time
+
+      example:
+        id:  "5beec397c5ea9a3183d35e8d"
+        name: "Florianopolis"
+        state: "SC"
+        createdAt : "2018-11-16T13:18:46.740Z"
+        updatedAt : "2018-11-16T13:18:46.740Z"
+
+    cities:
+      title: List of all available cities
+      type: array
+      items:
+        $ref: "#/components/schemas/city"
+
+    cityPayload:
+      title: City Payload
+      type: object
+      properties:
+        name:
+          type: string
+          description: |
+            Name of the city.
+        state:
+          type: string
+          description: |
+            It is the state shortName
+      required:
+        - name
+        - state
+      example:
+        name: "Florianopolis"
+        state: "SC"
+
+    customer:
+      title: Customer
+      type: object
+      properties:
+        id:
+          type: string
+          description: |
+            Customer identifier.
+        name:
+          type: string
+          description: |
+            Name of the Customer.
+        cityId:
+          type: string
+          description: |
+            city identifier of the Customer
+        bithDate:
+          type: string
+          format: date
+          description: |
+            The customer birth date
+        age:
+          type: integer
+          description: |
+            The customer age
+        gender:
+          type: string
+          enum: [MALE, FEMALE]
+          description: |
+            The customer gender
+        createdAt:
+          type: string
+          format: date
+          description: |
+            The timestamp when the Customer has been created
+        updatedAt:
+          type: string
+          format: date
+          description: |
+            The timestamp when the city has been updated for the last time
+
+      example:
+        id:  "5beec397c5ea9a3183d35e8d"
+        name: "Fabiano Paes"
+        cityId: "5beec397c5ea9a3183d35e1a"
+        birthDay : "1988-02-27"
+        gender : "MALE"
+        age: 30
+        createdAt : "2018-11-16T13:18:46.740Z"
+        updatedAt : "2018-11-16T13:18:46.740Z"
+
+    customers:
+      title: List of all available customers
+      type: array
+      items:
+        $ref: "#/components/schemas/customer"
+
+    customerPayload:
+      title: Customer Payload
+      type: object
+      properties:
+        name:
+          type: string
+          description: |
+            Name of the Customer.
+        cityId:
+          type: string
+          description: |
+            city identifier of the Customer
+        bithDate:
+          type: string
+          format: date
+          description: |
+            The customer birth date
+        gender:
+          type: string
+          enum: [MALE, FEMALE]
+          description: |
+            The customer gender
+      required:
+        - name
+        - cityId
+        - gender
+        - birthDate
+
+      example:
+        name: "Fabiano Paes"
+        cityId: "5beec397c5ea9a3183d35e1a"
+        birthDay : "1988-02-27"
+        gender : "MALE"

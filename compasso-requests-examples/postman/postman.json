@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "4ec09cd0-445b-4603-a81e-64cf0c1064a1",
+		"name": "Compasso samples requests",
+		"description": "This collection holds some examples of request to validate the compasso tech challange",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET states",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/states",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"states"
+					]
+				},
+				"description": "Retrieve all allowed states "
+			},
+			"response": []
+		},
+		{
+			"name": "GET cities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/cities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities"
+					]
+				},
+				"description": "Retrieve all cities"
+			},
+			"response": []
+		},
+		{
+			"name": "GET city",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/cities/5c4ca0f51ed7970001cf287e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities",
+						"5c4ca0f51ed7970001cf287e"
+					]
+				},
+				"description": "Retrieve a single city according to path param"
+			},
+			"response": []
+		},
+		{
+			"name": "POST city",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"state\" : \"SP\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/cities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities"
+					]
+				},
+				"description": "Save a new city"
+			},
+			"response": []
+		},
+		{
+			"name": "POST city missing name",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"state\" : \"SC\"}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/cities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities"
+					]
+				},
+				"description": "Should return bad request cause the client applied a wrong request"
+			},
+			"response": []
+		},
+		{
+			"name": "POST city invalid state",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\" : \"Rio de Janeiro\",\n  \"state\" : \"rb\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/cities",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities"
+					]
+				},
+				"description": "Should return bad request cause the client applied a wrong request"
+			},
+			"response": []
+		},
+		{
+			"name": "PUT city",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"name\" : \"Florianopolis\",\n  \"state\" : \"SC\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/cities/5c4ca0f51ed7970001cf287e",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"cities",
+						"5c4ca0f51ed7970001cf287e"
+					]
+				},
+				"description": "Get a city up to date"
+			},
+			"response": []
+		},
+		{
+			"name": "GET customers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					]
+				},
+				"description": "Retrieves all customers\n"
+			},
+			"response": []
+		},
+		{
+			"name": "POST customer",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Fabiano Paes\",\n\t\"cityId\" : \"5c4ce1d41ed7970001f950d9\",\n\t\"birthDate\" : \"1988-02-24\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers"
+					]
+				},
+				"description": "Creates a new customer"
+			},
+			"response": []
+		},
+		{
+			"name": "POST customer Copy",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Fab Paes\",\n\t\"cityId\" : \"5c4ce1d41ed7970001f950d9\",\n\t\"birthDate\" : \"1988-02-24\",\n\t\"gender\" : \"MALE\"\n\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers/5c4cf3b21ed7970001f950da",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"5c4cf3b21ed7970001f950da"
+					]
+				},
+				"description": "Creates a new customer"
+			},
+			"response": []
+		},
+		{
+			"name": "POST customer Copy Copy",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n"
+				},
+				"url": {
+					"raw": "http://localhost:8080/customers/5c4cf3b21ed7970001f950da",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customers",
+						"5c4cf3b21ed7970001f950da"
+					]
+				},
+				"description": "Creates a new customer"
+			},
+			"response": []
+		}
+	]
+}

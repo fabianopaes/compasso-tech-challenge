@@ -1,0 +1,74 @@
+buildscript {
+    ext {
+        springBootVersion = '2.0.0.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: 'jacoco'
+
+
+bootJar {
+    baseName = 'compasso-rest-api'
+    version =  '1.0.0'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencyManagement {
+    imports {
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Finchley.M8'
+    }
+}
+
+dependencies {
+    compile('org.springframework.cloud:spring-cloud-starter-config')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-rest', version: springBootVersion
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-data-mongodb', version: springBootVersion
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+    compile group: 'net.logstash.logback', name: 'logstash-logback-encoder', version: '5.0'
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '1.50.5'
+    testCompile group: 'cz.jirutka.spring', name: 'embedmongo-spring', version: '1.3.1'
+}
+
+repositories {
+    maven { url 'https://repo.spring.io/libs-snapshot' }
+}
+
+repositories {
+    maven {
+        url 'https://repo.spring.io/libs-milestone'
+    }
+}
+
+
+jacoco {
+    toolVersion = "0.7.1.201405082137"
+    reportsDir = file("$buildDir/reports/jacoco")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
