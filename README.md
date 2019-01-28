@@ -84,3 +84,6 @@ Publish HTML version ([docker](https://www.docker.com/community-edition) require
 $ make publish-documentation
 ```
 
+### Observations
+
+I used gradle instead of maven cause I am a little bit more familiar with that but if the maven is a really requirement I can portable the project asap, just let me know.
