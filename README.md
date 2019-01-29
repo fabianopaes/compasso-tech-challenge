@@ -86,4 +86,5 @@ $ make publish-documentation
 
 ### Observations
 
-I used gradle instead of maven cause I am a little bit more familiar with that but if the maven is a really requirement I can portable the project asap, just let me know.
+* I used gradle instead of maven cause I am a little bit more familiar with that but if the maven is a really requirement I can portable the project asap, just let me know.
+* If you have installed docker under root privileges, please add `sudo` to docker commands in Makefile.
