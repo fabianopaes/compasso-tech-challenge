@@ -3,7 +3,7 @@ include help.mk
 .PHONY: clean-dev
 clean-dev: ##@development clean the development environment
 	rm -rf public;
-	sudo docker-compose down \
+	docker-compose down \
 		--remove-orphans \
 		--volumes
 
@@ -35,11 +35,11 @@ cover: ##@development run the coverage report by jacoco
 
 .PHONY: test-acceptence
 test-acceptence: build ## run te e2e tests to make sure the app is health
-	sudo docker-compose up --build -d;
+	docker-compose up --build -d;
 	@echo 'Wainting the enviroment get up'
 	sleep 15;
 	cd compasso-e2e-tests && ${MAKE} test;
-	sudo docker-compose stop;
+	docker-compose stop;
 
 
 
